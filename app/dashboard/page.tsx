@@ -46,7 +46,7 @@ export default async function DashboardPage() {
     .select("id, input, output, checkin_result, created_at")
     .eq("user_id", user.id)
     .order("created_at", { ascending: false })
-    .limit(6);
+    .limit(30);
 
   const allDumps = (data ?? []) as BrainDumpRow[];
   const isFirstVisit = allDumps.length === 0;
@@ -60,7 +60,7 @@ export default async function DashboardPage() {
     !mostRecent.checkin_result &&
     new Date(mostRecent.created_at) < todayUTC;
 
-  const history = needsCheckin ? allDumps.slice(1, 6) : allDumps.slice(0, 5);
+  const history = needsCheckin ? allDumps.slice(1) : allDumps;
 
   return (
     <div className="min-h-screen bg-black">
